@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Ninja = require('../models/ninja');
 
 // setting routes
 
@@ -10,11 +11,8 @@ router.get("/ninjas", (req, res) => {
 
 // add anew ninja to the db
 router.post("/ninjas", (req, res) => {
-  console.log(req.body);
-  res.send({
-    type: "POST",
-    name: req.body.name,
-    rank: req.body.rank,
+  Ninja.create(req.body).then((ninja) => {
+    res.send(ninja);
   });
 });
 
